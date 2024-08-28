@@ -1,0 +1,1 @@
+Handles things like emails, order updates, sms perhaps

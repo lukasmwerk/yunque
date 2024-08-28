@@ -1,0 +1,1 @@
+Handles the mgmt of stock levels, should connect to the order service

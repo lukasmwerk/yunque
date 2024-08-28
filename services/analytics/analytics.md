@@ -1,0 +1,1 @@
+Analytics for the entire ecommerce shop. Should handle and communicate analytics to other services to inform shop mutations with some sort of middleware layer somewhere in there to clue in and provide a steering wheel for the shop admin users.
