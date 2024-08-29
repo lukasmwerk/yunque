@@ -3,12 +3,13 @@ package main
 import (
 	"os"
 
-	"github.com/lukasmwerk/yunque/cmd/server/internal"
 	"github.com/lukasmwerk/yunque/libs/logger"
+	"github.com/lukasmwerk/yunque/services/core/config"
+	"github.com/lukasmwerk/yunque/services/core/internal"
 )
 
 func main() {
-	ff := internal.NewFeatureFlags()
+	ff := config.NewFeatureFlags()
 	if !ff.IsValid() {
 		return
 	}

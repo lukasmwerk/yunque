@@ -5,17 +5,15 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/lukasmwerk/yunque/api"
-	"github.com/lukasmwerk/yunque/libs/config"
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/libs/types"
+	"github.com/lukasmwerk/yunque/services/core/api"
 )
 
 type Session struct {
 	CLI      bool
 	State    types.RunState
 	Context  context.Context
-	Config   config.Config
 	ExitCode int
 	Logger   logger.Logger
 	Server   *http.Server
@@ -36,5 +34,8 @@ func NewSession(rs types.RunState, logger logger.Logger) *Session {
 func (s *Session) Configure() {}
 
 func (s *Session) Run() {
-	time.Sleep(time.Second)
+	for {
+		checkServiceHealth()
+		time.Sleep(time.Second)
+	}
 }
