@@ -1,12 +1,25 @@
 package logger
 
-import "fmt"
+import (
+	"log"
+)
+
+// Using tabs to visually differentiate message categories
+const (
+	logInfoPrefix    = " (-) "
+	logConfigPrefix  = " \t(#) "
+	logStatePrefix   = " \t\t(@) "
+	logErrorPrefix   = " (*) "
+	logWarningPrefix = " (!) "
+	logFatalPrefix   = " (X) "
+)
 
 // Log Levels:
 // -1, no logs
 // 0, default: necessary logs
 // 1, verbose
 // 2, all info
+var logLevel = 0
 
 // Logger is a wrapper for logging actions
 type Logger interface {
@@ -34,18 +47,18 @@ func NewLogger(level int) Logger {
 }
 
 func (l *MainLogger) Println(a ...interface{}) {
-	fmt.Println(a...)
+	log.Println(a...)
 }
 
 // Printf adds a space to the format
 func (l *MainLogger) Printf(format string, a ...any) {
-	fmt.Printf(format+" ", a...)
+	log.Printf(format+" ", a...)
 }
 
 func (l *MainLogger) UpdateConfig(format string, a ...any) {
-	l.Printf(format, a...)
+	l.Printf(logConfigPrefix+format, a...)
 }
 
 func (l *MainLogger) UpdateStatus(format string, a ...any) {
-	l.Printf(format, a...)
+	l.Printf(logStatePrefix+format, a...)
 }
