@@ -12,6 +12,11 @@ type Decimal struct {
 	decimal uint64
 }
 
+// NewDecimal creates a new Decimal
+func NewDecimal(value uint64, decimal uint64) Decimal {
+	return Decimal{value: value, decimal: decimal}
+}
+
 // IntToDecimal converts an int into a decimal
 func IntToDecimal(valueInt int) Decimal {
 	return Decimal{
@@ -39,46 +44,24 @@ func FloatToDecimal(valueFloat float64) Decimal {
 	}
 }
 
-// Round rounds the decimal to the precision specified
-func (d *Decimal) Round(precision uint64) {
-	if precision >= d.decimal {
-		// No rounding needed if the requested precision is greater than or equal to the current precision
-		return
+// Round rounds the decimal to the precision specified using bankers rounding
+func (d Decimal) Round(precision uint64) Decimal {
+	if precision > d.decimal {
+		factor := uint64(math.Pow(10, float64(precision-d.decimal)))
+		return NewDecimal(d.value*factor, precision)
 	}
 
-	// Calculate the factor to reduce the precision
-	factor := uint64(1)
-	for i := uint64(0); i < d.decimal-precision; i++ {
-		factor *= 10
-	}
+	roundingFactor := uint64(math.Pow(10, float64(d.decimal-precision)))
+	halfFactor := roundingFactor / 2
+	roundedValue := (d.value + halfFactor) / roundingFactor * roundingFactor
 
-	// Calculate the new value and remainder
-	scaledValue := d.value / factor
-	remainder := d.value % factor
-
-	// Determine if we should round up
-	if remainder >= factor/2 {
-		scaledValue += 1
-	}
-
-	// Update the value and precision
-	d.value = scaledValue
-	d.decimal = precision
+	return NewDecimal(roundedValue, precision)
 }
 
-func bankersRoundStr(value uint64, precision uint64) string {
-	valueStr := fmt.Sprintf("%d", value)
-	if len(valueStr) <= int(precision) {
-		return fmt.Sprintf("%s%0*d", valueStr, int(precision)-len(valueStr), 0)
-	} else {
-		return fmt.Sprintf("%s", valueStr[:precision])
-	}
-}
-
-func (d *Decimal) ToString(precision uint64) string {
+func (d Decimal) ToString(precision uint64) string {
 	if precision > 100 {
 		log.Printf("Warning: using excessively large precision: %v", precision) // TODO: to be replaced by logger injection
 	}
 
-	return fmt.Sprintf("%d.%s", d.value, bankersRoundStr(d.decimal, precision))
+	return fmt.Sprintf("%d.%d", d.value, d.Round(precision).decimal)
 }
