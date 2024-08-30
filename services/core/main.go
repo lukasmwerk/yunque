@@ -11,7 +11,7 @@ import (
 func main() {
 	ff := config.NewFeatureFlags()
 	if !ff.IsValid() {
-		return
+		panic("Feature flags invalid, cannot start service")
 	}
 
 	logger := logger.NewLogger(ff.LogMode)
