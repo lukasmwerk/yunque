@@ -38,8 +38,8 @@ func NewSession(rs types.RunState, logger logger.Logger) *Session {
 func (s *Session) Configure() {}
 
 func (s *Session) Run() {
-	for range 20 {
+	for range 5 {
 		s.checkServiceHealth()
-		time.Sleep(time.Millisecond)
+		time.Sleep(time.Second)
 	}
 }
