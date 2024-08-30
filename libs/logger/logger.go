@@ -6,12 +6,14 @@ import (
 
 // Using tabs to visually differentiate message categories
 const (
-	logInfoPrefix    = " (-) "
-	logConfigPrefix  = " \t(#) "
-	logStatePrefix   = " \t\t(@) "
-	logErrorPrefix   = " (*) "
-	logWarningPrefix = " (!) "
-	logFatalPrefix   = " (X) "
+	logInfoPrefix        = " (-) "
+	logConfigPrefix      = " \t(#) "
+	logStatePrefix       = " \t\t(@) "
+	logLockMutexPrefix   = " \t\t\t([) "
+	logUnlockMutexPrefix = " \t\t\t(]) "
+	logErrorPrefix       = " (*) "
+	logWarningPrefix     = " (!) "
+	logFatalPrefix       = " (X) "
 )
 
 // Log Levels:
@@ -19,7 +21,6 @@ const (
 // 0, default: necessary logs
 // 1, verbose
 // 2, all info
-var logLevel = 0
 
 // Logger is a wrapper for logging actions
 type Logger interface {
@@ -31,16 +32,19 @@ type Logger interface {
 
 	// UpdateStatus handles information relating to system status
 	UpdateStatus(format string, a ...any)
+
+	// Lock Mutex is used to log a locking of a mutex
+	LockMutex(format string, a ...any)
 }
 
 type MainLogger struct {
-	placeholder int
+	logLevel int
 }
 
 func NewLogger(level int) Logger {
 	switch level {
 	case 0:
-		return &MainLogger{}
+		return &MainLogger{logLevel: 0}
 	default:
 		return &MainLogger{}
 	}
@@ -61,4 +65,12 @@ func (l *MainLogger) UpdateConfig(format string, a ...any) {
 
 func (l *MainLogger) UpdateStatus(format string, a ...any) {
 	l.Printf(logStatePrefix+format, a...)
+}
+
+func (l *MainLogger) LockMutex(format string, a ...any) {
+	l.Printf(logLockMutexPrefix+format, a...)
+}
+
+func (l *MainLogger) UnlockMutex(format string, a ...any) {
+	l.Printf(logUnlockMutexPrefix+format, a...)
 }

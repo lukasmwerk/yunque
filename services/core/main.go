@@ -5,7 +5,7 @@ import (
 
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/services/core/config"
-	"github.com/lukasmwerk/yunque/services/core/internal"
+	"github.com/lukasmwerk/yunque/services/core/server"
 )
 
 func main() {
@@ -16,9 +16,9 @@ func main() {
 
 	logger := logger.NewLogger(ff.LogMode)
 	logger.UpdateStatus("Starting Server...")
-	session := internal.NewSession(ff.RunMode, logger)
+	session := server.NewSession(ff.RunMode, logger)
 	session.Run() // enter run loop
-	logger.UpdateStatus("Shutting down gracefully")
+	logger.UpdateStatus("Shutting down gracefully...")
 
 	os.Exit(session.ExitCode)
 }
