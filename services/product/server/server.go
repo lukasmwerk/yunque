@@ -7,7 +7,6 @@ import (
 
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/libs/types"
-	"github.com/lukasmwerk/yunque/services/core/api"
 	"github.com/lukasmwerk/yunque/services/core/config"
 )
 
@@ -25,7 +24,7 @@ type Session struct {
 func NewSession(logger logger.Logger) *Session {
 	session := &Session{
 		Logger: logger,
-		Server: api.ConfigureServer(logger),
+		// Server: api.ConfigureServer(logger),
 	}
 
 	return session
@@ -36,7 +35,7 @@ func (s *Session) Configure() {}
 
 func (s *Session) Run() {
 	for range 5 {
-		s.checkServiceHealth()
+		// s.checkServiceHealth()
 		time.Sleep(time.Second)
 	}
 }

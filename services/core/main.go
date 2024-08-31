@@ -15,9 +15,9 @@ func main() {
 	}
 
 	logger := logger.NewLogger(ff.LogMode)
-	logger.UpdateStatus("Starting Server...")
-	session := server.NewSession(ff.RunMode, logger)
-	logger.UpdateStatus("Running Server...")
+	logger.UpdateStatus("Starting core service server...")
+	session := server.NewSession(logger)
+	logger.UpdateStatus("Running core service server...")
 	session.Run() // enter run loop
 	logger.UpdateStatus("Shutting down gracefully...")
 
