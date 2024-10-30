@@ -1,6 +1,8 @@
 # Services
 Microservices for the yunque backend
 
+This architecture does not prevent upstream errors in services from causing failures in the core system, but it is designed to be fairly resistant to these failures.
+
 This README serves as an entry point for (micro)service documentation.
 
 ## [analytics](analytics)
