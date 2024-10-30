@@ -2,30 +2,33 @@ package server
 
 import (
 	"context"
-	"net/http"
+	"log"
+	"net"
 	"time"
 
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/libs/types"
-	"github.com/lukasmwerk/yunque/services/core/api"
-	"github.com/lukasmwerk/yunque/services/core/config"
+	"github.com/lukasmwerk/yunque/services/inventory/api"
+	"google.golang.org/grpc"
 )
 
 type Session struct {
 	State    types.RunState
 	Context  context.Context
-	Config   config.SessionConfig
 	ExitCode int
 	Logger   logger.Logger
-	Server   *http.Server
+	Server   *grpc.Server
+	Listener *net.Listener
 	Services types.ServiceList
 	Mutex    types.RWMutex
 }
 
 func NewSession(logger logger.Logger) *Session {
+	server, listener := api.ConfigureServer(logger)
 	session := &Session{
-		Logger: logger,
-		Server: api.ConfigureServer(logger),
+		Logger:   logger,
+		Server:   server,
+		Listener: listener,
 	}
 
 	return session
@@ -35,8 +38,13 @@ func NewSession(logger logger.Logger) *Session {
 func (s *Session) Configure() {}
 
 func (s *Session) Run() {
+	go func() {
+		if err := s.Server.Serve(*s.Listener); err != nil {
+			log.Fatalf("failed to serve: %s", err)
+		}
+	}()
 	for {
-		s.checkServiceHealth()
+		// s.checkServiceHealth() different implementation needed
 		time.Sleep(time.Second)
 	}
 }
