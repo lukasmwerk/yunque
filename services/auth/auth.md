@@ -19,7 +19,7 @@ data models, pretty close to the database schema
 
 # repositories
 data access layer
-u
+
 # service
 le biz logic
 
