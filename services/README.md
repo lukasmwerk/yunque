@@ -11,7 +11,7 @@ A service for processing analytics both for internal dynamic updates and admin d
 ## [auth](auth)
 A simple authorization service for logging in to the store
 
-# [core](core)
+# [gateway](gateway)
 The main backend api-gateway that connects the microservices to end-users
 
 ## [help](help)

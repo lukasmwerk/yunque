@@ -7,8 +7,8 @@ import (
 
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/libs/types"
-	"github.com/lukasmwerk/yunque/services/core/api"
-	"github.com/lukasmwerk/yunque/services/core/config"
+	"github.com/lukasmwerk/yunque/services/gateway/api"
+	"github.com/lukasmwerk/yunque/services/gateway/config"
 )
 
 type Session struct {

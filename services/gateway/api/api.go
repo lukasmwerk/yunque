@@ -18,7 +18,7 @@ func ConfigureServer(logger logger.Logger) *http.Server {
 		Handler: multiplexer,
 	}
 
-	logger.UpdateConfig("core rest api http server using port 8080...")
+	logger.UpdateConfig("gateway rest api http server using port 8080...")
 	logger.UpdateStatus("Starting server on port 8080...")
 
 	return server

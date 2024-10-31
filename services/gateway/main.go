@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/lukasmwerk/yunque/libs/logger"
-	"github.com/lukasmwerk/yunque/services/core/config"
-	"github.com/lukasmwerk/yunque/services/core/server"
+	"github.com/lukasmwerk/yunque/services/gateway/config"
+	"github.com/lukasmwerk/yunque/services/gateway/server"
 )
 
 func main() {
@@ -15,9 +15,9 @@ func main() {
 	}
 
 	logger := logger.NewLogger(ff.LogMode)
-	logger.UpdateStatus("Starting core service server...")
+	logger.UpdateStatus("Starting gateway service server...")
 	session := server.NewSession(logger)
-	logger.UpdateStatus("Running core service server...")
+	logger.UpdateStatus("Running gateway service server...")
 	session.Run() // enter run loop
 	logger.UpdateStatus("Shutting down gracefully...")
 

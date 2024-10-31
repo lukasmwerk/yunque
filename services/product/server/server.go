@@ -7,13 +7,12 @@ import (
 
 	"github.com/lukasmwerk/yunque/libs/logger"
 	"github.com/lukasmwerk/yunque/libs/types"
-	"github.com/lukasmwerk/yunque/services/core/config"
 )
 
 type Session struct {
-	State    types.RunState
-	Context  context.Context
-	Config   config.SessionConfig
+	State   types.RunState
+	Context context.Context
+	// Config   config.SessionConfig
 	ExitCode int
 	Logger   logger.Logger
 	Server   *http.Server
