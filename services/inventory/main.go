@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/lukasmwerk/yunque/libs/logger"
+	"github.com/lukasmwerk/yunque/libraries/logger"
 	"github.com/lukasmwerk/yunque/services/inventory/server"
 )
 

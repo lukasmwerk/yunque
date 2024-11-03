@@ -1,6 +1,6 @@
 package server
 
-import "github.com/lukasmwerk/yunque/libs/common"
+import "github.com/lukasmwerk/yunque/libraries/common"
 
 // Checks status of registered services that are expected by the server configuration
 func (s *Session) checkServiceHealth() error {

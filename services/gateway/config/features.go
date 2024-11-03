@@ -1,6 +1,6 @@
 package config
 
-import "github.com/lukasmwerk/yunque/libs/types"
+import "github.com/lukasmwerk/yunque/libraries/types"
 
 // FeatureFlags defines toggles for features that should be enabled or disabled.
 // These features may be toggled off at runtime, either by the developer or

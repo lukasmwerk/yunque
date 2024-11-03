@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/lukasmwerk/yunque/libs/logger"
+	"github.com/lukasmwerk/yunque/libraries/logger"
 )
 
 // ConfigureServer sets up the http server that will handle the api

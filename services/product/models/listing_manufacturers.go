@@ -1,6 +1,6 @@
 package models
 
-import "github.com/lukasmwerk/yunque/libs/types"
+import "github.com/lukasmwerk/yunque/libraries/types"
 
 // ListingManufacturers implements brand options for browsing alternative manufacturers
 type ListingManufacturers struct {

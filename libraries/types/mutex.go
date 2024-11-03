@@ -4,7 +4,7 @@ package types
 import (
 	"sync"
 
-	"github.com/lukasmwerk/yunque/libs/logger"
+	"github.com/lukasmwerk/yunque/libraries/logger"
 )
 
 // RWMutex is a read write mutex (must be initialized!)

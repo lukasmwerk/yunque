@@ -1,6 +1,6 @@
 package models
 
-import "github.com/lukasmwerk/yunque/libs/types"
+import "github.com/lukasmwerk/yunque/libraries/types"
 
 // colorNameString is a string wrapper to enforce proper naming
 type ColorNameString string

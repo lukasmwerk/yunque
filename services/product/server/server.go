@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/lukasmwerk/yunque/libs/logger"
-	"github.com/lukasmwerk/yunque/libs/types"
+	"github.com/lukasmwerk/yunque/libraries/logger"
+	"github.com/lukasmwerk/yunque/libraries/types"
 )
 
 type Session struct {

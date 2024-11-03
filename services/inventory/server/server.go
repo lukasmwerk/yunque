@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/lukasmwerk/yunque/libs/logger"
-	"github.com/lukasmwerk/yunque/libs/types"
+	"github.com/lukasmwerk/yunque/libraries/logger"
+	"github.com/lukasmwerk/yunque/libraries/types"
 	"github.com/lukasmwerk/yunque/services/inventory/api"
 	"google.golang.org/grpc"
 )
