@@ -1,3 +1,8 @@
-Top level of the actual documentation. Swagger for APIs
+# Yunque Documentation Home
+*Access system documentation from this page. Product and user-facing 
+documentation can be found in the GitHub wiki.*
 
-For developers, a [Code Guide](code_guide.md) that describes some of the style decisions in this project. 
+* **[Architecture (top level)](architecture.md)**
+* **[Quality Models](quality.md)**
+* **[Code Guide and Best Practices](code_guide.md)**
+* **[Personal notes and thoughts](notes.md)**
