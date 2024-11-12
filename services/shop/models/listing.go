@@ -2,60 +2,67 @@ package models
 
 import "github.com/lukasmwerk/yunque/libraries/types"
 
+// Listing is the listing data for a product used to display a listing.
+// A listing can contain multiple products under options. The intended use
+// is to enable selecting individual variant products and modifying the displayed listing.
 type Listing struct {
-	Name    string
-	Price   types.PriceRange
-	Options ListingOptions
+	// Name is the name of the parent product.
+	Name string
+
+	// PriceRange is a range of prices a product can be based on options.
+	PriceRange types.PriceRange
+
+	// Options are variations to a product for example shoe sizes.
+	// Note: Foregoing polymorphism for the sake of polymorphism on this,
+	// the category count is limited and each is handled very differently.
+	// Named structs for ease of testing and longevity.
+	Options struct {
+		ProductColors        []ProductColor
+		ProductManufacturers []ProductManufacturer
+		ProductQualities     []ProductQuality
+		ProductSizes         []ProductSize
+		ProductTypes         []ProductType
+	}
+
+	// ProductDetails contains details of the current product being displayed.
+	ProductDetails ProductDetails
 }
 
-// colorNameString is a string wrapper to enforce proper naming
-type ColorNameString string
-
-// ToString (NOT DONE)
-func (s ColorNameString) ToString() string {
-	return string(s)
+// ProductDetails contains variant-specific data. For example, a product of a certain
+// color may have its own price or description, but we still want to display the parent
+// listing that contains the same options lists.
+type ProductDetails struct {
+	ProductID types.ID
+	Price     types.Price
 }
 
-// NewColorNameString (NOT DONE)
-func NewColorNameString(s string) (string, error) {
-	return "", nil
+type ProductColor struct {
+	ID             types.ID // local value, since a color is not part of a predefined set
+	Name           string
+	Thumbnail      types.Thumbnail
+	ProductDetails ProductDetails
 }
 
-// ListingColor implements color options for products
-type ListingColors struct {
-	List []*ListingColor // First item is default in cases where that is relevant
+type ProductManufacturer struct {
+	ManufacturerID types.ID
+	Name           string
+	ProductDetails ProductDetails
 }
 
-// ListingColor (UNTESTED) is a color of a product listed in an item listing
-type ListingColor struct {
-	Name      ColorNameString
-	Thumbnail types.Thumbnail
-	Product   Product
+type ProductQuality struct {
+	ID             types.ID // local value
+	Name           string
+	ProductDetails ProductDetails
 }
 
-// ListingManufacturers implements brand options for browsing alternative manufacturers
-type ListingManufacturers struct {
-	List []*ListingManufacturer
+type ProductSize struct {
+	SizeID         types.ID
+	Name           string // TODO: add size model or type
+	ProductDetails ProductDetails
 }
 
-type ListingManufacturer struct {
-	Name types.ManufacturerName
-}
-
-// ListingOptions (UNTESTED) is a wrapper struct for selectable options such as size, color, etc
-type ListingOptions struct {
-	Color        ListingColors
-	Manufacturer ListingManufacturers
-	Quality      ListingQualities
-	Size         ListingSizes
-	Type         ListingTypes
-}
-
-// ListingQualities implements quality options for products such as refurbished
-type ListingQualities struct{}
-
-type ListingSizes struct {
-}
-
-type ListingTypes struct {
+type ProductType struct {
+	ID             types.ID
+	Name           string
+	ProductDetails ProductDetails
 }
