@@ -1,0 +1,109 @@
+cloud-architecture-diagram
+
+// Title
+title Ecommerce Backend Microservices Architecture
+
+// Gateway Service
+Gateway Service [icon: aws-api-gateway] // entry point
+
+// Auth Service
+Auth Service [color: red, icon: lock] {
+  Auth API [icon: aws-ec2, label: "API"] // entry point
+  Auth DB [icon: aws-rds, label: "DB"]
+}
+
+// Help Service
+Help Service [color: blue, icon: help-circle] {
+  Help API [icon: aws-ec2, label: "API"] // entry point
+  Help DB [icon: aws-rds, label: "DB"]
+}
+
+// Analytics Service
+Analytics Service [color: purple, icon: bar-chart-2] {
+  Analytics API [icon: aws-ec2, label: "API"] // entry point
+  Analytics DB [icon: aws-rds, label: "DB"]
+}
+
+// Inventory Service
+Inventory Service [color: green, icon: box] {
+  Inventory API [icon: aws-ec2, label: "API"] // entry point
+  Inventory DB [icon: aws-rds, label: "DB"]
+}
+
+// Product Service
+Product Service [color: orange, icon: tag] {
+  Product API [icon: aws-ec2, label: "API"] // entry point
+  Product DB [icon: aws-rds, label: "DB"]
+}
+
+// Orders Service
+Orders Service [color: yellow, icon: shopping-bag] {
+  Orders API [icon: aws-ec2, label: "API"] // entry point
+  Orders DB [icon: aws-rds, label: "DB"]
+}
+
+// Cart Service
+Cart Service [color: teal, icon: shopping-cart] {
+  Cart API [icon: aws-ec2, label: "API"] // entry point
+  Cart DB [icon: aws-rds, label: "DB"]
+}
+
+// Payment Service
+Payment Service [color: pink, icon: dollar-sign] {
+  Payment API [icon: aws-ec2, label: "API"] // entry point
+  Payment DB [icon: aws-rds, label: "DB"]
+}
+
+// Reviews Service
+Reviews Service [color: brown, icon: message-square] {
+  Reviews API [icon: aws-ec2, label: "API"] // entry point
+  Reviews DB [icon: aws-rds, label: "DB"]
+}
+
+// Notification Service
+Notification Service [color: gray, icon: bell] {
+  Notification API [icon: aws-ec2, label: "API"] // entry point
+  Notification DB [icon: aws-rds, label: "DB"]
+}
+
+// Connections
+Gateway Service <--> Auth API
+Gateway Service <--> Help API
+Gateway Service <--> Analytics API
+Gateway Service <--> Inventory API
+Gateway Service <--> Product API
+Gateway Service <--> Orders API
+Gateway Service <--> Cart API
+Gateway Service <--> Payment API
+Gateway Service <--> Reviews API
+Gateway Service <--> Notification API
+
+Auth API --> Inventory API
+Auth API --> Product API
+Auth API --> Orders API
+Auth API --> Cart API
+Auth API --> Reviews API
+Auth API --> Payment API
+Auth API --> Notification API
+
+Inventory API <> Product API
+Inventory API <> Orders API
+Inventory API <> Cart API
+Product API <> Orders API
+Product API <> Cart API
+
+Reviews API > Product API
+Payment API < Product API
+Reviews API --> Notification API
+Product API --> Notification API
+Cart API --> Notification API
+Orders API --> Notification API
+
+Inventory API --> Analytics API
+Product API --> Analytics API
+Orders API --> Analytics API
+Cart API --> Analytics API
+Payment API --> Analytics API
+Reviews API --> Analytics API
+Notification API --> Analytics API
+
