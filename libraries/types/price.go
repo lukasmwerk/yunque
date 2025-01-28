@@ -1,32 +1,39 @@
 package types
 
-// Price (UNTESTED) represents a monetary price
+// Price represents a monetary price
 type Price struct {
-	Value    Decimal
-	Currency CurrencyType // For redundancy in case of errors
+	// Value is the numeric representation of the price.
+	// Always in USD multiplied by 100, so 2.99 is 299.
+	// Note: interested to see what issues I run into
+	// if I need to switch to a larger multiplier later.
+	Value uint64
 }
 
-// Rounds a price to its final transaction amount (bankers rounding)
-func (p *Price) Round() *Price {
+//// Round rounds a price to its final transaction amount (uses bankers rounding).
+//func (p *Price) Round() *Price {
+//	return &Price{
+//		Value: p.Value.Round(decimalPlaces[p.Currency]),
+//	}
+//}
+
+// NewPrice creates a new price.
+func NewPrice(value uint64, currency CurrencyType) *Price {
 	return &Price{
-		Value:    p.Value.Round(decimalPlaces[p.Currency]),
-		Currency: p.Currency,
+		Value: value,
 	}
 }
 
-func NewPrice(value Decimal, currency CurrencyType) *Price {
+// NewPriceFromFloat creates a price from a float price, for example 3.31
+// Extra decimal places beyond the hundreds are shaved off (rounded down)
+func NewPriceFromFloat(value float64, currency CurrencyType) *Price {
 	return &Price{
-		Value:    value,
-		Currency: currency,
+		Value: uint64(value * 100),
 	}
 }
 
-// ToString shows the string representation (for display purposes only!)
-func (p *Price) ToString() string {
-	return p.Value.ToString(decimalPlaces[p.Currency])
-}
-
-// ResolveDecimals attempts to fix issues with an improperly set decimals value
-func (p *Price) ResolveDecimals() {
-	// if p.Currency != nil &&
+// ToFloat returns a float representation of a price, e.g. 2.99
+// Calculations on prices should not be done using floats, this
+// function is primarily for display purposes.
+func (p *Price) ToFloat() float64 {
+	return float64(p.Value / 100)
 }
